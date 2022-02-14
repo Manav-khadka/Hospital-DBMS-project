@@ -1,0 +1,15 @@
+############# SIMPLE HOSPITAL MANAGEMENT SYSTEM USING PYTHON #######################
+ **********LOGIN DETAILS***********
+	   USERNAME:Admin
+	   PASSWORD:hospital
+*********Developed By Manav Khadka***********
+
+** IF YOU FIND ANY ERRORS OR ANY PROBLEMS RELATED THIS PROGRAM, FEEL FREE TO CONTACT ME**  
+
+***** LEAVE A COMMENT IF YOU LOVED My WORK *****
+
+
+***** PROJECT LINK:- https://github.com/Manav-khadka/Hospital-DBMS-project*****
+
+
+*****FOR MORE PROJECT visit:-https://github.com/Manav-khadka******
