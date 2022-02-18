@@ -1,0 +1,1 @@
+SELECT * FROM new.patient_details;
