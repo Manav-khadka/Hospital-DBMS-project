@@ -1,4 +1,4 @@
-# Hospital-DBMS-project
+# Hospital-DBMS-project With Python and MySQL
 ## About this project
 
 It is Hospital Management software which provide a facility to Manage Patient’s, Doctor’s, Staff’s, detail,
