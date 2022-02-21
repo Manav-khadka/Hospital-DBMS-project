@@ -1,52 +1,38 @@
-'''
-This is hostial management software
-made by using Python module TKINTER
-and for database I use MySQL
-
-developer: Manav Khadka
-Branch: Btech CSE
-Enrollment no.:LNCBBTCSE062
-'''
-
-from tkinter import*  #module for making GUI window
-from tkinter import messagebox #Module to show msgbox like errror, info
-from tkinter import ttk #module to import importang GUI widgets like Entry , Frame, label 
-import mysql.connector # module to connect gui or python to  mysql database
+from tkinter import*
+from tkinter import messagebox
+from tkinter import ttk
+import mysql.connector
 
 
-login=Tk() #starting login window 
+login=Tk()
 login.title("HOSPITAL MANAGEMENT SYSTEM")
-login.iconbitmap("./resources/hospital.ico")#for icon of hospital management system
-login.geometry("1540x800+100+50") #defining the size of our login window
+login.iconbitmap("./resources/hospital.ico")
+login.geometry("1540x800+100+50")
 
-user_login_image=PhotoImage(file="./resources/Login.png")
-label_background=Label(login,image=user_login_image)#labeling login UI
+user_login_image=PhotoImage(file="./resources/untitled.png")
+label_background=Label(login,image=user_login_image)
 label_background.pack()
 
-entry_username=Entry(login,font=("times new roman",20))#Entry box for usename 
+entry_username=Entry(login,font=("times new roman",20))
 entry_username.place(x=280,y=215)
 
-entry_password=Entry(login,font=("times new roman",20),show=("*"))#ENtry box for PAssword
+entry_password=Entry(login,font=("times new roman",20),show=("*"))
 entry_password.place(x=280,y=280)
-#this is management function here we define selection button like patient management,
-#doctor manmagement , staff managment 
+  
 def mgmnt():
-    #if condition to check that id and password is correct or not
-    if entry_username.get()=="Admin" and entry_password.get()=="1234": 
-        login.destroy() #destroying login window after Successfully login
-        management=Tk() #Selection window after successfully login
+    if entry_username.get()=="Admin" and entry_password.get()=="1234":
+        login.destroy()
+        management=Tk()
         management.iconbitmap("./resources/hospital.ico")
         management.geometry("1500x800+100+50")
         management.title("Select Management System")
-        mgmnt_image=PhotoImage(file="./resources/selection.png")
+        mgmnt_image=PhotoImage(file="./resources/untitled.png")
         label2_background=Label(management,image=mgmnt_image)
         label2_background.pack()
-        #if user select patient in managment system then second login page will open
-        # where we should give  our server information
-        def login2():  
-            management.destroy()#after successfully login and connection with MySQL server
-                                #management login destroy
-            mysqlhosting=Tk() #login 2 window is started
+        
+        def login2():
+            management.destroy()
+            mysqlhosting=Tk()
             mysqlhosting.title("HOSTING DETAILS")
             mysqlhosting.iconbitmap("./resources/hospital.ico")
             mysqlhosting.geometry("500x400+100+50")
@@ -58,22 +44,21 @@ def mgmnt():
             u=StringVar()
             p=StringVar()
             entry_host=Entry(mysqlhosting,font=("times new roman",20),textvariable=h,bg="light green")
-            entry_host.place(x=160,y=113)#entry box for host server address
+            entry_host.place(x=160,y=113)
             entry_user=Entry(mysqlhosting,font=("times new roman",20),textvariable=u,bg="light green")
-            entry_user.place(x=160,y=190) # entry box for host address
+            entry_user.place(x=160,y=190)
             entry_pass=Entry(mysqlhosting,font=("times new roman",20),textvariable=p,bg="light green",show=("*"))
-            entry_pass.place(x=160,y=260)#entry box for our data base password
+            entry_pass.place(x=160,y=260)
               
-            def patient(): #defining the function for patient body 
-                mysqlhosting.destroy() #after successfully login sql login page will destroy and new root or main window will open
-                conn = mysql.connector.connect(host=h.get(), username=u.get(), password=p.get())#connecting to our database
+            def patient():
+                mysqlhosting.destroy()
+                conn = mysql.connector.connect(host=h.get(), username=u.get(), password=p.get())
                 my_cursor = conn.cursor()
-                operation = """CREATE DATABASE IF NOT EXISTS new""" #CReating databse if not exist using MySQL Query
+                operation = """CREATE DATABASE IF NOT EXISTS new"""
                 my_cursor.execute(operation)
-                operation = """USE new"""  #using  data base that we created
+                operation = """USE new"""
                 my_cursor.execute(operation)
-                #creating table if not exit using MySQL query
-                operation = """CREATE TABLE IF NOT EXISTS patient_details( 
+                operation = """CREATE TABLE IF NOT EXISTS patient_details(
                         Patient_ID             VARCHAR(50)          NOT NULL    PRIMARY KEY,
                         Patient_name           VARCHAR(50)          NOT NULL,
                         Age                    VARCHAR(50)          NOT NULL,
@@ -85,19 +70,18 @@ def mgmnt():
                         Checked_by             VARCHAR(50)          NOT NULL,
                         Contact_NO             VARCHAR(50)          NOT NULL)"""		
                 my_cursor.execute(operation) 
-                root = Tk() #creating main or root window affte successfull login
+                root = Tk()
                 root.iconbitmap("./resources/hospital.ico")
                 root.title("PATIENT'S MANAGEMENT SYSTEM")
                 root.geometry("1500x800+0+0")
-                root.resizable(False, False) #stopping resizing the main window
+                root.resizable(False, False)
     # ================================Heading of title========================================================================
-                H = Label(root, bd=20, relief=GROOVE, font=("times new roman", 50), #Labelling heading on main window using Label widget
+                H = Label(root, bd=20, relief=GROOVE, font=("times new roman", 50),
                                     text="PATIENT's MANAGEMENT SYSTEM", width=1490, bg="#DC0049")
                 H.pack()
         # ========================================detail frame===============================================================
-                DF = Frame(root, bd=20, relief=GROOVE,) #MAking data frame on main window using Frame widget
+                DF = Frame(root, bd=20, relief=GROOVE,)
                 DF.place(x=0, y=100, width=1500, height=400)
-                #labelingon frame for left data frame in which we enter patient detail 
                 DFL = LabelFrame(DF, bd=15, relief=GROOVE, font=(
                             "times new roman", 18), text="Patient's Detail", bg="#E5F5D0")
                 DFL.place(x=0, y=0, width=1000, height=360)
@@ -115,7 +99,6 @@ def mgmnt():
                 DFD = Frame(root, bd=15, relief=GROOVE)
                 DFD.place(x=0, y=520, width=1500, height=265)
     # ================================================================================================================
-            #defining the type of variable
                 id = StringVar()
                 pn = StringVar()
                 age = StringVar()
@@ -126,7 +109,6 @@ def mgmnt():
                 medication = StringVar()
                 dr = StringVar()
                 cn = StringVar()
-                #Entry for patient detail entry
                 lbl_patient_id = Label(DFL, font=(
                             "times new roman", 20), text="Patient ID.:", padx=5, pady=10, bg="#E5F5D0")
                 lbl_patient_id.grid(column=0, row=0, sticky=W)
@@ -213,7 +195,7 @@ def mgmnt():
                 style = ttk.Style()
                 style.configure("Treeview.Heading", font=("times new roman", 11,"bold"))
 
-            #making colums and colums heading in table where detail will show from database 
+
                 trv.heading("1", text="Patient ID",anchor="w",)
                 trv.heading("2", text="Patient Name",anchor="w")
                 trv.heading("3", text="Age",anchor="w")
@@ -237,7 +219,7 @@ def mgmnt():
                 trv.column("10", width=80, )
                 trv.pack(fill=BOTH)
         # =============================defining function for button===============================================
-                def update():#update function to update the patient data here We use MySQL Query 
+                def update():#update function to update the patient data
                     if pn.get()=="" or id.get()=="":
                         messagebox.showinfo("Info","Select data to update")
                     else:       
@@ -294,9 +276,9 @@ def mgmnt():
                     def show():
                         
                         for record in trv.get_children():
-                            trv.delete(record)#deleting all children from table
-                        s1=entry_search.get()#getting from search box
-                        my_cursor.execute("SELECT * FROM patient_details WHERE Patient_name LIKE '%"+s1+"%'"  ) #Query for selecting patient name
+                            trv.delete(record)
+                        s1=entry_search.get()
+                        my_cursor.execute("SELECT * FROM patient_details WHERE Patient_name LIKE '%"+s1+"%'"  )
                         rows = my_cursor.fetchall() 
                         trv.delete(*trv.get_children())
                         for i in rows:
@@ -313,10 +295,10 @@ def mgmnt():
                     rows = my_cursor.fetchall()
                     if len(rows)!=0:
                         
-                        trv.delete(*trv.get_children())#Deleting all children
+                        trv.delete(*trv.get_children())
                             
                         for i in rows:
-                            trv.insert("", END, value=(i)) #after deleting all children 
+                            trv.insert("", END, value=(i))
                 fetch_data()
                 def presciption():#function to print presciption
                     txtpresciption.delete("1.0","end")
@@ -332,7 +314,6 @@ def mgmnt():
                     txtpresciption.insert(END,"Checked By:\t\t"+entry_checked_by.get()+"\n")
                     txtpresciption.insert(END,"Contact NO:\t\t"+entry_contact.get()+"\n")
                 def select(): #Function for selection of data from table and show into the entry box
-                    #here first we delete all entry boxes
                     entry_patient_id.delete(0,END)
                     entry_patient_name.delete(0,END)
                     entry_age.delete(0,END)
@@ -343,9 +324,9 @@ def mgmnt():
                     entry_medication.delete(0,END)
                     entry_checked_by.delete(0,END)
                     entry_contact.delete(0,END)
-                    selected=trv.focus()#focusing values of treevie on entry boxes
+                    selected=trv.focus()
                     values=trv.item(selected,'values')
-                #After deleting we insert selected item back on entry boxes
+                        
                     entry_patient_id.insert(0,values[0])
                     entry_patient_name.insert(1,values[1])
                     entry_age.insert(2,values[2])
